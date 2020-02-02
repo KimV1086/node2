@@ -10,8 +10,14 @@ router.post('/', (req, res) => {
         message: req.body.message,
         datetime: date
     };
-    fs.writeFileSync(fileName, JSON.stringify(message));
-    res.send(message);
+    fs.writeFile(fileName, JSON.stringify(message), (err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log("save file");
+            res.send(message);
+        }
+    });
 });
 
 router.get('/', (req, res) => {
